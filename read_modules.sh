@@ -1,0 +1,1 @@
+dart run modules_reader.dart
