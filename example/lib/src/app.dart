@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final moduleAPages = moduleA.loadPages((route) {
       if (route == routeNameA) {
-        return CreateGetPageParams<dynamic>(transition: Transition.fadeIn);
+        return CreateGetPageParams<String>(transition: Transition.fadeIn);
       }
       return CreateGetPageParams<dynamic>(transition: Transition.rightToLeft);
     });
@@ -94,8 +94,8 @@ class MyPage extends GetView<MyController> {
     );
   }
 
-  void onPressed() {
-    moduleA.toNamed(RouteA(), arguments: "我是参数");
+  void onPressed() async {
+    final s = await moduleA.toNamed<String>(RouteA(), arguments: "我是参数");
   }
 }
 

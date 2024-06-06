@@ -43,8 +43,8 @@ abstract class ModuleInterface {
 
   /// 子模块根据 [route] 和 宿主 APP 提供的 [params] 生成 [GetPage]。
   /// > 生成路由需要宿主 APP 和 子模块共同参与，宿主 APP 提供生成 [GetPage] 的参数，子模块提供页面需要展示的 [Widget]。
-  GetPage _generatePage<T>(RouteName route, CreateGetPageParams<T> params) {
-    return GetPage<T>(
+  GetPage _generatePage(RouteName route, CreateGetPageParams params) {
+    return GetPage(
       name: route.prefixSlash,
       page: () => generatePageWidget(route, params),
       popGesture: params.popGesture,
@@ -85,24 +85,25 @@ abstract class ModuleInterface {
   bool notSupportRoute(BaseRoute route) => !supportRoute(route);
 
   /// 路由跳转，参考 [Get.toNamed]，如果 [isLoaded] 为 true，则跳转，否则返回会被截断
-  Future<R?>? toNamed<A, R>(
-    BaseRoute<A, R> route, {
-    A? arguments,
+  Future<R?>? toNamed<R>(
+    BaseRoute<R> route, {
+    dynamic arguments,
     int? id,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-  }) {
+  }) async {
     if (notSupportRoute(route)) {
       final errorMsg = '$this 不支持 $route 路由';
       developer.log(errorMsg, error: errorMsg);
       return null;
     }
-    return route._toNamed(
+    final r = await route._toNamed(
       arguments: arguments,
       id: id,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
     );
+    return r;
   }
 }
 
@@ -112,24 +113,26 @@ extension BaseRouteX on BaseRoute {
 }
 
 /// 路由抽象类，[A] 表示路由的入参类型，[R] 表示路由的返回值类型。
-abstract class BaseRoute<A, R> {
+abstract class BaseRoute<R> {
   String get name;
 
   // 跳转路由自身对应的页面
   // > 设置为私有的，是因为希望调用者只能通过 [IModule.toNamed] 调用
   Future<R?>? _toNamed({
-    A? arguments,
+    dynamic arguments,
     int? id,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
-  }) {
-    return Get.toNamed<R>(
+  }) async {
+    // TODO: Get.toNamed<dynamic> 为什么不能写成 Get.toNamed<R>
+    final r = await Get.toNamed<dynamic>(
       namePath,
       arguments: arguments,
       id: id,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
     );
+    return r as R?;
   }
 
   @override

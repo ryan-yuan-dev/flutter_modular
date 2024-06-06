@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 typedef RouteName = String;
-typedef OnCreateGetPageParams<T> = CreateGetPageParams<T> Function(
+typedef OnCreateGetPageParams = CreateGetPageParams Function(
     RouteName route);
 
 /// 路由名称扩展
