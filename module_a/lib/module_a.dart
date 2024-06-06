@@ -14,6 +14,7 @@ class ModuleA extends BaseModule {
       case routeNameA:
         return Scaffold(
           body: Container(
+            color: Colors.blue,
             alignment: Alignment.center,
             child: Text(route),
           ),

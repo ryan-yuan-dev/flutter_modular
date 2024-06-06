@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:pubspec_parse/pubspec_parse.dart';
-
+import 'dart:developer' as developer;
 class ModulesReader {
   /// 读取当前目录下的 pubspec.yaml 中所有的依赖库
   static Future<String> readPubspecYaml() async {
@@ -37,6 +37,6 @@ class ModulesReader {
 
 void main(List<String> args) {
   ModulesReader.readPubspecYaml().then((value) {
-    print(value);
+    developer.log(value);
   });
 }

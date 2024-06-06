@@ -3,8 +3,10 @@ library flutter_modular;
 import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'base_route.dart';
 import 'types.dart';
 import 'dart:developer' as developer;
+part 'base_route_extension.dart';
 
 /// 模块接口
 ///
@@ -104,51 +106,5 @@ abstract class ModuleInterface {
       parameters: parameters,
     );
     return r;
-  }
-}
-
-/// [BaseRoute] 扩展。
-extension BaseRouteX on BaseRoute {
-  String get namePath => name.startsWith("/") ? name : "/$name";
-}
-
-/// 路由抽象类，[A] 表示路由的入参类型，[R] 表示路由的返回值类型。
-abstract class BaseRoute<R> {
-  String get name;
-
-  // 跳转路由自身对应的页面
-  // > 设置为私有的，是因为希望调用者只能通过 [IModule.toNamed] 调用
-  Future<R?>? _toNamed({
-    dynamic arguments,
-    int? id,
-    bool preventDuplicates = true,
-    Map<String, String>? parameters,
-  }) async {
-    // TODO: Get.toNamed<dynamic> 为什么不能写成 Get.toNamed<R>
-    final r = await Get.toNamed<dynamic>(
-      namePath,
-      arguments: arguments,
-      id: id,
-      preventDuplicates: preventDuplicates,
-      parameters: parameters,
-    );
-    return r as R?;
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (other.runtimeType != runtimeType) return false;
-    return other is BaseRoute && other.name == name;
-  }
-
-  @override
-  int get hashCode => name.hashCode;
-}
-
-/// 路由列表扩展
-extension RouteListX on List<BaseRoute> {
-  /// 通过路由名称获取路由
-  BaseRoute? getRouteByName(String name) {
-    return firstWhereOrNull((route) => route.name == name);
   }
 }
