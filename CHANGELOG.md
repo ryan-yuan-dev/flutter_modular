@@ -1,3 +1,7 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+* Initial release.
+* Add README
+* Add CHANGELOG
+* Add LICENSE MIT
+

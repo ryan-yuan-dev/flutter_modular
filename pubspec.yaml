@@ -1,7 +1,7 @@
 name: flutter_modular
-description: "A new Flutter package project."
+description: "Empowers modular Flutter development. It simplifies app creation by enabling you to decompose screens into reusable modules that can be effortlessly combined to build entirely new applications."
 version: 0.0.1
-homepage:
+homepage: https://github.com/ryan-yuan-dev/flutter_modular
 
 environment:
   sdk: '>=3.4.1 <4.0.0'
