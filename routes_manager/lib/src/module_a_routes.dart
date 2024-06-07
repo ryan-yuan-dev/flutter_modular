@@ -7,7 +7,7 @@ const RouteName routeNameA = 'a';
 const RouteName routeNameB = 'b';
 
 /// 定义 [RouteA] 仅有一个作用, 指明 [GetPage.arguments] 和 页面返回数据的类型
-class RouteA extends BaseRoute<String> {
+class RouteA extends BaseRoute<String, String> {
   @override
   String get name => routeNameA;
 }

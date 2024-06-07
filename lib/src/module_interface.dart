@@ -88,7 +88,7 @@ abstract class ModuleInterface {
 
   /// 路由跳转，参考 [Get.toNamed]，如果 [isLoaded] 为 true，则跳转，否则返回会被截断
   Future<R?>? toNamed<R>(
-    BaseRoute<R> route, {
+    BaseRoute<dynamic, R> route, {
     dynamic arguments,
     int? id,
     bool preventDuplicates = true,

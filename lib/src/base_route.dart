@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-/// 路由抽象类，[A] 表示路由的入参类型，[R] 表示路由的返回值类型。
-abstract class BaseRoute<R> {
+/// 路由抽象类，[A] 表示路由的入参 `arguments` 类型，[R] 表示路由的返回值 `result` 的类型。
+abstract class BaseRoute<A, R> {
   String get name;
 
   @override

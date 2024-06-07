@@ -1,6 +1,6 @@
 part of 'module_interface.dart';
 
-extension BaseRouteX<R> on BaseRoute<R> {
+extension BaseRouteX<A, R> on BaseRoute<A, R> {
   String get namePath => name.startsWith("/") ? name : "/$name";
 
 // 跳转路由自身对应的页面
