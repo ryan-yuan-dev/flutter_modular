@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
 import 'package:routes_manager/routes_manager.dart';
+import 'package:get/get.dart';
 
 class ModuleA extends BaseModule {
   const ModuleA({super.name = 'module_a', required super.isLoaded});
@@ -14,9 +15,17 @@ class ModuleA extends BaseModule {
       case routeNameA:
         return Scaffold(
           body: Container(
-            color: Colors.blue,
             alignment: Alignment.center,
-            child: Text(route),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Page A'),
+                const SizedBox(height: 20),
+                ElevatedButton(onPressed: _goBack, child: Text(lReturn.tr)),
+              ],
+            ),
           ),
         );
       case routeNameB:
@@ -33,5 +42,9 @@ class ModuleA extends BaseModule {
           ),
         );
     }
+  }
+
+  void _goBack() {
+    Get.back();
   }
 }
